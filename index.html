@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تمرین گرافیک افشاریان و رحیم زاده</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
+    <script src="https://glassify.saviru.me/cdn/glassify.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#333333',
+                        'secondary': '#6983d0'
+                    }
+                    ,
+                    fontFamily: {
+                        'sans': ['vazir', 'sans-serif'],
+                        'titr': ['vazirblack']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @font-face {
+            font-family: 'vazir';
+            src: url('/assets/fonts/Vazirmatn-Bold.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'vazirBlack';
+            src: url('/assets/fonts/Vazirmatn-Black.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            background-color: #000;
+        }
+
+        canvas {
+            z-index: -1;
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        main:hover {
+            transform: scale(1.3);
+            box-shadow:
+                0 0 30px rgba(255, 255, 255, .4),
+                0 0 80px rgba(255, 255, 255, .15);
+        }
+
+        .overlay {
+            position: fixed;
+            inset: 0;
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            transition: .5s;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        body:has(main:hover) .overlay {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="gl" style="z-index: -20;inset: 0;position: fixed;"></canvas>
+    <div class="overlay"></div>
+    <glassi-fy></glassi-fy>
+    <div class=" md:mx-10 lg:mx-20 z-10 justify-center items-center w-fit">
+        <div class="grid grid-cols-1 md:grid-cols-[0.5fr_1fr_0.5fr] gap-5 mt-5 mx-auto ">
+            <!-- ======================== Right Logo ======================== -->
+            <div class="b m-auto md:sticky shadow-2xl rounded-full">
+                <img src="/assets/Logo.png"
+                    class="rounded-full shadow-xl w-20 h-20 transition-transform duration-300 hover:a hover:scale-125 hover:shadow-2xl ">
+            </div>
+            <!-- ======================== Title ======================== -->
+            <div
+                class="b shadow-md rounded-full h-20 inline-grid border-2 px-5 glassify navbar text-gray-700 backdrop-blur-lg ">
+                <a href="#"
+                    class=" flex text-nowrap text-3xl  font-sans font-bold  justify-center my-auto font-titr ">به
+                    دانشگاه
+                    ازاد ملارد خوش امدید</a>
+            </div>
+            <!-- ======================== Left Logo ======================== -->
+            <div class="b md:sticky  m-auto shadow-2xl rounded-full">
+                <img src="/assets/Logo.png"
+                    class="hidden md:block rounded-full shadow-xl h-20 w-auto transition-transform duration-300 hover:a hover:scale-125 hover:shadow-2xl  ">
+            </div>
+
+            <!-- ======================== Right Sidebar ======================== -->
+            <aside class="b rounded-3xl shadow-md p-4 h-fit md:sticky md:top-20 mt-0 glassify navbar ">
+
+                <nav>
+                    <ul class="space-y-2">
+                        <!-- آیتم با زیرمجموعه -->
+                        <li>
+                            <div class="font-semibold text-gray-800 mb-1">🗃️ حساب کاربری</div>
+                            <ul class="mr-4 space-y-1 border-r-2 border-secondary pr-3">
+                                <li><a href="#"
+                                        class="sidebar-link block text-gray-800 hover:text-primary hover:bg-secondary p-1 rounded transition">ورود</a>
+                                </li>
+                                <li><a href="#"
+                                        class="sidebar-link block text-gray-800 hover:text-primary hover:bg-secondary p-1 rounded transition">ثبت
+                                        نام</a></li>
+                                <li><a href="#"
+                                        class="sidebar-link block text-gray-800 hover:text-primary hover:bg-secondary p-1 rounded transition">راهنمای
+                                        ثبت نام</a></li>
+                                <li><a href="#"
+                                        class="sidebar-link block text-gray-800 hover:text-primary hover:bg-secondary p-1 rounded transition">شرایط
+                                        ثبت نام</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="font-semibold text-gray-800 mb-1">ℹ️ درباره</div>
+                            <ul class="mr-4 space-y-1 border-r-2 border-secondary pr-3">
+                                <li><a href="#"
+                                        class="sidebar-link block text-gray-800 hover:text-primary hover:bg-secondary p-1 rounded transition">درباره
+                                        واحد</a></li>
+                                <li><a href="#"
+                                        class="sidebar-link block text-gray-800 hover:text-primary hover:bg-secondary p-1 rounded transition">راه
+                                        های ارتباطی</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div
+                                class="sidebar-link font-semibold text-gray-800 mb-1 sidebar-link hover:text-primary hover:bg-secondary p-1 rounded transition">
+                                📅 تقویم آموزشی</div>
+                    </ul>
+                    </li>
+
+                    </ul>
+                </nav>
+            </aside>
+
+            <!-- ======================== main ======================== -->
+            <main
+                class="bg-white border-white  border-2 rounded-xl shadow-2xl drop-shadow-2xl p-3 inline-grid z-50 duration-500"
+                style="z-index: 1;">
+                <img src="/assets/iauLogo.png" class="rounded-xl  w-1/2 place-self-center">
+                <h2 class="text-center font-semibold text-gray-800 mb-3">تهران ، ملارد ، بلوار رسول اکرم (ص)، بلوار شهید
+                    مرشدی، دانشگاه آزاد اسلامی واحد ملارد</h2>
+            </main>
+
+            <!-- ======================== Left Sidebar ======================== -->
+            <aside class="b rounded-3xl shadow-md p-4 h-fit md:sticky md:top-20 glassify navbar ">
+                <nav>
+                    <ul class="space-y-2">
+                        <li>
+                            <div
+                                class="font-semibold text-gray-800 mb-2 sidebar-link hover:text-primary hover:bg-secondary p-2 rounded transition">
+                                👨‍💻 مهندسی کامپیوتر</div>
+                        </li>
+                        <li>
+                            <div
+                                class="font-semibold text-gray-800 mb-2 sidebar-link hover:text-primary hover:bg-secondary p-2 rounded transition">
+                                🏢 مهندسی عمران</div>
+                        </li>
+                        <li>
+                            <div
+                                class="font-semibold text-gray-800 mb-2 sidebar-link hover:text-primary hover:bg-secondary p-2 rounded transition">
+                                🧮 حسابداری</div>
+                        </li>
+                        <li>
+                            <div
+                                class="font-semibold text-gray-800 mb-2 sidebar-link hover:text-primary hover:bg-secondary p-2 rounded transition">
+                                👨‍⚖️ حقوق</div>
+                        </li>
+                        <li>
+                            <div
+                                class="font-semibold text-gray-800 mb-2 sidebar-link hover:text-primary hover:bg-secondary p-2 rounded transition">
+                                🧠 روانشناسی</div>
+                        </li>
+                        <li>
+                            <div
+                                class="font-semibold text-gray-800 mb-2 sidebar-link hover:text-primary hover:bg-secondary p-2 rounded transition">
+                                🀄 مترجمی زبان انگلیسی</div>
+                        </li>
+                    </ul>
+                </nav>
+            </aside>
+        </div>
+    </div>
+    <footer
+        class="bg-secondary text-gray-900 border-2 border-gray-600 border-b-0  pb-2 fixed bottom-0 w-fit mx-auto left-1/2 -translate-x-1/2 rounded-t-3xl ">
+        <div class=" pt-2 px-4 text-center text-sm">
+            © 2026 علی مسیحا رحیم زاده | کیارش افشاریان
+        </div>
+    </footer>
+</body>
+<script>
+    const ANIMATION_SPEED = 0.35;
+    const WARP_STRENGTH = 0.3;
+    const WARP_SCALE = 3;
+    const WARP_SPEED = 0.4;
+    const POINT_DRIFT = 0.1;
+    const FALLOFF_SHARPNESS = 8; 
+    const FALLOFF_BREATHE = 2;   
+    const GRAIN_AMOUNT = 0.08;  
+
+    const canvas = document.getElementById('gl');
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+    const colors = [
+        new THREE.Color('#ffffff'),
+        new THREE.Color('#e3f0ff'),
+        new THREE.Color('#b0d0f0'),    
+        new THREE.Color('#6a9bcb'),    
+        new THREE.Color('#e3f0ff')     
+    ];
+
+    const vertexShader = `
+    varying vec2 vUv;
+    void main() {
+        vUv = uv;
+        gl_Position = vec4(position, 1.0);
+    }
+`;
+
+    const fragmentShader = `
+    uniform float uTime;
+    uniform vec2 uResolution;
+    uniform vec3 uColors[5];
+    uniform float uAnimSpeed;
+    uniform float uWarpStrength;
+    uniform float uWarpScale;
+    uniform float uWarpSpeed;
+    uniform float uPointDrift;
+    uniform float uFalloffSharpness;
+    uniform float uFalloffBreathe;
+    uniform float uGrainAmount;
+    
+    varying vec2 vUv;
+
+    vec3 permute(vec3 x) { return mod(((x*34.0)+1.0)*x, 289.0); }
+
+    float snoise(vec2 v){
+        const vec4 C = vec4(0.211324865405187, 0.366025403784439,
+                -0.577350269189626, 0.024390243902439);
+        vec2 i  = floor(v + dot(v, C.yy));
+        vec2 x0 = v - i + dot(i, C.xx);
+        vec2 i1;
+        i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
+        vec4 x12 = x0.xyxy + C.xxzz;
+        x12.xy -= i1;
+        i = mod(i, 289.0);
+        vec3 p = permute(permute(i.y + vec3(0.0, i1.y, 1.0))
+            + i.x + vec3(0.0, i1.x, 1.0));
+        vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy), dot(x12.zw,x12.zw)), 0.0);
+        m = m*m;
+        m = m*m;
+        vec3 x = 2.0 * fract(p * C.www) - 1.0;
+        vec3 h = abs(x) - 0.5;
+        vec3 ox = floor(x + 0.5);
+        vec3 a0 = x - ox;
+        m *= 1.79284291400159 - 0.85373472095314 * (a0*a0 + h*h);
+        vec3 g;
+        g.x  = a0.x  * x0.x  + h.x  * x0.y;
+        g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+        return 130.0 * dot(m, g);
+    }
+
+    void main() {
+        vec2 uv = vUv;
+        
+        float time = uTime * uAnimSpeed;
+        
+        float warp = snoise(uv * uWarpScale + time * uWarpSpeed) * uWarpStrength;
+        vec2 warpedUv = uv + vec2(warp, -warp);
+
+        vec2 p_tl = vec2(0.2,  0.8)  + vec2(uPointDrift * sin(time),         uPointDrift * 0.5 * cos(time * 0.9));
+        vec2 p_tr = vec2(0.85, 0.85) + vec2(uPointDrift * 0.5 * cos(time * 0.7), uPointDrift * sin(time * 0.8));
+        vec2 p_bl = vec2(0.15, 0.2)  + vec2(uPointDrift * sin(time * 0.6),   uPointDrift * 0.5 * cos(time * 0.5));
+        vec2 p_br = vec2(0.8,  0.25) + vec2(uPointDrift * 0.5 * cos(time * 0.8), uPointDrift * sin(time * 0.7));
+        vec2 p_c  = vec2(0.5,  0.55) + vec2(uPointDrift * sin(time * 0.5),   uPointDrift * cos(time * 0.4));
+
+        float d_tl = distance(warpedUv, p_tl);
+        float d_tr = distance(warpedUv, p_tr);
+        float d_bl = distance(warpedUv, p_bl);
+        float d_br = distance(warpedUv, p_br);
+        float d_c  = distance(warpedUv, p_c);
+
+        float w_tl = 1.0 / pow(d_tl, uFalloffSharpness + uFalloffBreathe * sin(time));
+        float w_tr = 1.0 / pow(d_tr, uFalloffSharpness + uFalloffBreathe * cos(time));
+        float w_bl = 1.0 / pow(d_bl, uFalloffSharpness);
+        float w_br = 1.0 / pow(d_br, uFalloffSharpness);
+        float w_c  = 1.0 / pow(d_c,  uFalloffSharpness - 0.3);
+
+        float total_w = w_tl + w_tr + w_bl + w_br + w_c;
+        w_tl /= total_w;
+        w_tr /= total_w;
+        w_bl /= total_w;
+        w_br /= total_w;
+        w_c  /= total_w;
+
+        vec3 color = 
+            uColors[0] * w_tl +
+            uColors[1] * w_tr +
+            uColors[2] * w_bl +
+            uColors[3] * w_br +
+            uColors[4] * w_c;
+
+        float grain = fract(sin(dot(uv, vec2(12.9898, 78.233) * 2.0)) * 43758.5453);
+        color += grain * uGrainAmount;
+
+        gl_FragColor = vec4(color, 1.0);
+    }
+`;
+
+    const geometry = new THREE.PlaneGeometry(2, 2);
+    const material = new THREE.ShaderMaterial({
+        vertexShader,
+        fragmentShader,
+        uniforms: {
+            uTime: { value: 0 },
+            uResolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
+            uColors: { value: colors },
+            uAnimSpeed: { value: ANIMATION_SPEED },
+            uWarpStrength: { value: WARP_STRENGTH },
+            uWarpScale: { value: WARP_SCALE },
+            uWarpSpeed: { value: WARP_SPEED },
+            uPointDrift: { value: POINT_DRIFT },
+            uFalloffSharpness: { value: FALLOFF_SHARPNESS },
+            uFalloffBreathe: { value: FALLOFF_BREATHE },
+            uGrainAmount: { value: GRAIN_AMOUNT }
+        }
+    });
+
+    const mesh = new THREE.Mesh(geometry, material);
+    scene.add(mesh);
+
+    const clock = new THREE.Clock();
+
+    function animate() {
+        requestAnimationFrame(animate);
+        material.uniforms.uTime.value = clock.getElapsedTime();
+        renderer.render(scene, camera);
+    }
+
+    animate();
+
+    window.addEventListener('resize', () => {
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        material.uniforms.uResolution.value.set(window.innerWidth, window.innerHeight);
+    });
+
+</script>
+
+</html>

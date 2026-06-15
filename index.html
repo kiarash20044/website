@@ -5,9 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تمرین گرافیک افشاریان و رحیم زاده</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
-    <script src="https://glassify.saviru.me/cdn/glassify.js"></script>
+    
     <script>
         tailwind.config = {
             theme: {
@@ -28,14 +26,14 @@
     <style>
         @font-face {
             font-family: 'vazir';
-            src: url('/assets/fonts/Vazirmatn-Bold.woff2') format('woff2');
+            src: url('./fonts/vazir1.woff2') format('woff2');
             font-weight: normal;
             font-style: normal;
         }
 
         @font-face {
             font-family: 'vazirBlack';
-            src: url('/assets/fonts/Vazirmatn-Black.woff2') format('woff2');
+            src: url('./fonts/vazir2.woff2') format('woff2');
             font-weight: normal;
             font-style: normal;
         }
@@ -91,11 +89,11 @@
     <canvas id="gl" style="z-index: -20;inset: 0;position: fixed;"></canvas>
     <div class="overlay"></div>
     <glassi-fy></glassi-fy>
-    <div class=" md:mx-10 lg:mx-20 z-10 justify-center items-center w-fit">
+    <div class=" mx-auto z-10 justify-center items-center w-fit">
         <div class="grid grid-cols-1 md:grid-cols-[0.5fr_1fr_0.5fr] gap-5 mt-5 mx-auto ">
             <!-- ======================== Right Logo ======================== -->
             <div class="b m-auto md:sticky shadow-2xl rounded-full">
-                <img src="/assets/Logo.png"
+                <img src="./image/logo.png"
                     class="rounded-full shadow-xl w-20 h-20 transition-transform duration-300 hover:a hover:scale-125 hover:shadow-2xl ">
             </div>
             <!-- ======================== Title ======================== -->
@@ -108,7 +106,7 @@
             </div>
             <!-- ======================== Left Logo ======================== -->
             <div class="b md:sticky  m-auto shadow-2xl rounded-full">
-                <img src="/assets/Logo.png"
+                <img src="./image/logo.png"
                     class="hidden md:block rounded-full shadow-xl h-20 w-auto transition-transform duration-300 hover:a hover:scale-125 hover:shadow-2xl  ">
             </div>
 
@@ -161,7 +159,7 @@
             <main
                 class="bg-white border-white  border-2 rounded-xl shadow-2xl drop-shadow-2xl p-3 inline-grid z-50 duration-500"
                 style="z-index: 1;">
-                <img src="/assets/iauLogo.png" class="rounded-xl  w-1/2 place-self-center">
+                <img src="./image/iaulogo.png" class="rounded-xl  w-1/2 place-self-center">
                 <h2 class="text-center font-semibold text-gray-800 mb-3">تهران ، ملارد ، بلوار رسول اکرم (ص)، بلوار شهید
                     مرشدی، دانشگاه آزاد اسلامی واحد ملارد</h2>
             </main>
@@ -206,11 +204,14 @@
         </div>
     </div>
     <footer
-        class="bg-secondary text-gray-900 border-2 border-gray-600 border-b-0  pb-2 fixed bottom-0 w-fit mx-auto left-1/2 -translate-x-1/2 rounded-t-3xl ">
+        class="bg-gray-100 text-gray-900 border-2 border-gray-600 border-b-0  pb-2 fixed bottom-0 w-fit mx-auto left-1/2 -translate-x-1/2 rounded-t-3xl ">
         <div class=" pt-2 px-4 text-center text-sm">
             © 2026 علی مسیحا رحیم زاده | کیارش افشاریان
         </div>
     </footer>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
+    <script src="https://glassify.saviru.me/cdn/glassify.js"></script>
 </body>
 <script>
     const ANIMATION_SPEED = 0.35;
